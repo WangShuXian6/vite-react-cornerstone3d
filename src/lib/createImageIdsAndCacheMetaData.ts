@@ -2,14 +2,12 @@ import { api } from "dicomweb-client"
 import cornerstoneDICOMImageLoader from "@cornerstonejs/dicom-image-loader"
 
 /**
-/**
- * Uses dicomweb-client to fetch metadata of a study, cache it in cornerstone,
- * and return a list of imageIds for the frames.
+ * 使用 dicomweb-client 获取一个研究的元数据，将其缓存到 cornerstone，
+ * 并返回该研究中各帧的 imageIds 列表。
  *
- * Uses the app config to choose which study to fetch, and which
- * dicom-web server to fetch it from.
+ * 使用应用配置选择要获取的研究，以及从哪个 dicom-web 服务器获取。
  *
- * @returns {string[]} An array of imageIds for instances in the study.
+ * @returns {string[]} 一个包含该研究中实例 imageIds 的数组。
  */
 
 export default async function createImageIdsAndCacheMetaData({
@@ -56,8 +54,8 @@ export default async function createImageIdsAndCacheMetaData({
     return imageId
   })
 
-  // we don't want to add non-pet
-  // Note: for 99% of scanners SUV calculation is consistent bw slices
+// 我们不想添加非 PET 数据
+// 注：对于 99% 的扫描仪，SUV 计算在切片之间是一致的
 
   return imageIds
 }

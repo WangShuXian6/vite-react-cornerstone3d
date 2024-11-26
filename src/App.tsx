@@ -25,7 +25,7 @@ function App() {
       await csToolsInit()
       dicomImageLoaderInit({maxWebWorkers:1})
 
-      // Get Cornerstone imageIds and fetch metadata into RAM
+      // 获取Cornerstone imageIds并将元数据加载到RAM中
       const imageIds = await createImageIdsAndCacheMetaData({
         StudyInstanceUID:
           "1.3.6.1.4.1.14519.5.2.1.7009.2403.334240657131972136850343327463",
@@ -33,8 +33,9 @@ function App() {
           "1.3.6.1.4.1.14519.5.2.1.7009.2403.226151125820845824875394858561",
         wadoRsRoot: "https://d3t6nz73ql33tx.cloudfront.net/dicomweb",
       })
+      console.log('imageIds:',imageIds)
 
-      // Instantiate a rendering engine
+      // 实例化渲染引擎
       const renderingEngineId = "myRenderingEngine"
       const renderingEngine = new RenderingEngine(renderingEngineId)
       const viewportId = "CT"
@@ -51,29 +52,29 @@ function App() {
 
       renderingEngine.enableElement(viewportInput)
 
-      // Get the stack viewport that was created
+      // 获取已创建的堆栈视口
       const viewport = renderingEngine.getViewport(viewportId) as Types.IVolumeViewport
 
-      // Define a volume in memory
+      // 定义内存容量
       const volumeId = "streamingImageVolume"
       const volume = await volumeLoader.createAndCacheVolume(volumeId, {
         imageIds,
       })
 
-      // Set the volume to load
+      // 开始加载图像数据。
       // @ts-ignore
       volume.load()
 
-      // Set the volume on the viewport and it's default properties
+      // 将加载的图像卷绑定到视口中。
       viewport.setVolumes([{ volumeId}])
 
-      // Render the image
+      // 执行渲染，最终显示图像。
       viewport.render()
     }
 
     setup()
 
-    // Create a stack viewport
+    // 创建堆栈视口
   }, [elementRef, running])
 
   return (
