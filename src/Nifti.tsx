@@ -41,6 +41,8 @@ function Nifti() {
         url: niftiURL,
       })
 
+      console.log('nifti imageIds:',imageIds)
+
       const renderingEngineId = "myRenderingEngine"
       const renderingEngine = new RenderingEngine(renderingEngineId)
 
